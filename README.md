@@ -1,6 +1,6 @@
 # Planka
 
-Elegant open source project tracking — an independent, modernized fork.
+Elegant open source project tracking - an independent, modernized fork.
 
 ![License](https://img.shields.io/github/license/orneiavso/planka)
 
@@ -13,8 +13,8 @@ Elegant open source project tracking — an independent, modernized fork.
 
 ## What this fork adds
 
-- WYSIWYG rich-text editing for card descriptions and comments — markdown still supported *(in progress)*
-- Security backports on the 1.26.3 base — path-traversal fix, SSRF hardening *(in progress)*
+- WYSIWYG rich-text editing for card descriptions and comments - markdown still supported
+- Security backports on the 1.26.3 base - path-traversal fix, SSRF hardening *(in progress)*
 - A few other modernizing improvements *(in progress)*
 
 ## Features
@@ -40,7 +40,7 @@ Configuration follows the standard PLANKA environment variables.
 
 ## Security
 
-Please report security issues privately to **orneiavso@gmail.com** — do not open a public issue.
+Please report security issues privately to **orneiavso@gmail.com** - do not open a public issue.
 
 ## Credits
 
