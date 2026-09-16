@@ -1,63 +1,54 @@
 # Planka
-#### Elegant open source project tracking.
 
-![David (path)](https://img.shields.io/github/package-json/v/plankanban/planka) ![Docker Pulls](https://img.shields.io/badge/docker_pulls-5M%2B-%23066da5) ![GitHub](https://img.shields.io/github/license/plankanban/planka)
+Elegant open source project tracking — an independent, modernized fork.
 
-![](https://raw.githubusercontent.com/plankanban/planka/master/demo.gif)
+![License](https://img.shields.io/github/license/orneiavso/planka)
 
-[**Client demo**](https://plankanban.github.io/planka) (without server features).
+> A fork of [PLANKA](https://github.com/plankanban/planka) by Maksim Eltyshev,
+> based on the last AGPL-3.0 release **v1.26.3** (commit `0c2ba9e3`).
+> Maintained independently. Licensed under **AGPL-3.0**.
+> Not affiliated with or endorsed by PLANKA.
+
+![Demo](./demo.gif)
+
+## What this fork adds
+
+- WYSIWYG rich-text editing for card descriptions and comments — markdown still supported *(in progress)*
+- Security backports on the 1.26.3 base — path-traversal fix, SSRF hardening *(in progress)*
+- A few other modernizing improvements *(in progress)*
 
 ## Features
 
-- Create projects, boards, lists, cards, labels and tasks
-- Add card members, track time, set due dates, add attachments, write comments
-- Markdown support in card description and comments
+- Projects, boards, lists, cards, labels and tasks
+- Card members, time tracking, due dates, attachments, comments
 - Filter by members and labels
-- Customize project backgrounds
-- Real-time updates
-- Internal notifications
+- Customizable project backgrounds
+- Real-time updates and internal notifications
 - Multiple interface languages
 - Single sign-on via OpenID Connect
 
-## How to deploy Planka
+## Deployment
 
-There are many ways to install Planka, [check them out](https://docs.planka.cloud/docs/welcome/).
-
-For configuration, please see the [configuration section](https://docs.planka.cloud/docs/category/configuration/).
-
-## Mobile app
-
-Here is the [mobile app repository](https://github.com/LouisHDev/planka_app) maintained by the community, where you can build an app for iOS and Android.
-
-Alternatively, you can download the [Android APK](https://github.com/LouisHDev/planka_app/releases/latest/download/app-release.apk) directly.
-
-If you have an iOS device and would like to test the app, you can join [TestFlight](https://testflight.apple.com/join/Uwn41eY4) (limited to 200 participants).
-
-## Planka postman api
-
-For external access api use [postman](https://documenter.getpostman.com/view/3360622/2sB2cRCPpU#3caa89a9-995d-4c17-b4ae-5cd136bb713f).
-
-## Contact
-
-- If you want to get a hosted version of Planka, you can contact us via email contact@planka.cloud
-- For any security issues, please do not create a public issue on GitHub, instead please write to security@planka.cloud
-
-We do NOT offer any public support via email, please use GitHub.
-
-## Development
-
-See the [development section](https://docs.planka.cloud/docs/category/development/).
+Build and run with the included `Dockerfile` / `docker-compose.yml`.
+Configuration follows the standard PLANKA environment variables.
 
 ## Tech stack
 
-- React, Redux, Redux-Saga, Redux-ORM, Semantic UI React, react-beautiful-dnd
+- React, Redux, Redux-Saga, Redux-ORM
 - Sails.js, Knex.js
 - PostgreSQL
 
+## Security
+
+Please report security issues privately to **orneiavso@gmail.com** — do not open a public issue.
+
+## Credits
+
+This project is a fork of **[PLANKA](https://github.com/plankanban/planka)**, created by
+Maksim Eltyshev and built by its contributors. Huge thanks to everyone who shaped the original project.
+
+[![PLANKA contributors](https://contrib.rocks/image?repo=plankanban/planka)](https://github.com/plankanban/planka/graphs/contributors)
+
 ## License
 
-Planka is [AGPL-3.0 licensed](https://github.com/plankanban/planka/blob/master/LICENSE).
-
-## Contributors
-
-[![](https://contrib.rocks/image?repo=plankanban/planka)](https://github.com/plankanban/planka/graphs/contributors)
+[AGPL-3.0](./LICENSE). Original work © Maksim Eltyshev and PLANKA contributors; modifications © Orne Iasson.
