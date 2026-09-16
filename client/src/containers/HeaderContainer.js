@@ -13,15 +13,6 @@ const mapStateToProps = (state) => {
   const notifications = selectors.selectNotificationsForCurrentUser(state);
   const isCurrentUserManager = selectors.selectIsCurrentUserManagerForCurrentProject(state);
   const isBoardFrozen = selectors.selectIsBoardFrozen(state);
-  const projectBoards = currentProject ? selectors.selectBoardsForCurrentProject(state) : [];
-  const hasProjectBoards = projectBoards.length > 0;
-  const { boardId: currentBoardId } = selectors.selectPath(state);
-  const currentBoardListIds = currentBoardId
-    ? selectors.selectListIdsForCurrentBoard(state)
-    : null;
-  const hasEmptyCurrentBoard = currentBoardListIds !== null && currentBoardListIds.length === 0;
-  const shouldAutoUnlock =
-    isBoardFrozen && !!currentProject && (!hasProjectBoards || hasEmptyCurrentBoard);
 
   return {
     notifications,
@@ -32,7 +23,6 @@ const mapStateToProps = (state) => {
     canEditUsers: currentUser.isAdmin,
     isBoardFrozen,
     canToggleBoardFreeze: currentUser.isAdmin && !!currentProject,
-    shouldAutoUnlock,
   };
 };
 

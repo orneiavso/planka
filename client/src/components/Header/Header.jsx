@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -26,7 +26,6 @@ const Header = React.memo(
     canEditUsers,
     isBoardFrozen,
     canToggleBoardFreeze,
-    shouldAutoUnlock,
     onProjectSettingsClick,
     onUsersClick,
     onNotificationDelete,
@@ -39,12 +38,6 @@ const Header = React.memo(
         onProjectSettingsClick();
       }
     }, [canEditProject, onProjectSettingsClick]);
-
-    useEffect(() => {
-      if (shouldAutoUnlock) {
-        onToggleBoardFreeze(false);
-      }
-    }, [shouldAutoUnlock, onToggleBoardFreeze]);
 
     const handleBoardFreezeToggleClick = useCallback(() => {
       onToggleBoardFreeze(!isBoardFrozen);
@@ -137,7 +130,6 @@ Header.propTypes = {
   canEditUsers: PropTypes.bool.isRequired,
   isBoardFrozen: PropTypes.bool.isRequired,
   canToggleBoardFreeze: PropTypes.bool.isRequired,
-  shouldAutoUnlock: PropTypes.bool.isRequired,
   onProjectSettingsClick: PropTypes.func.isRequired,
   onUsersClick: PropTypes.func.isRequired,
   onNotificationDelete: PropTypes.func.isRequired,
