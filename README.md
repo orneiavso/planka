@@ -38,10 +38,6 @@ Configuration follows the standard PLANKA environment variables.
 - Sails.js, Knex.js
 - PostgreSQL
 
-## Security
-
-Please report security issues privately to **orneiavso@gmail.com** - do not open a public issue.
-
 ## Credits
 
 This project is a fork of **[PLANKA](https://github.com/plankanban/planka)**, created by
