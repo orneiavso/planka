@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: '작업 목록',
+      deleteTaskList_title: '작업 목록 삭제',
+      areYouSureYouWantToDeleteTaskList: '작업 목록을 삭제하시겠습니까? 모든 작업이 영구적으로 삭제됩니다.',
       aboutPlanka: 'Planka 소개',
       account: '계정',
       actions: '작업',
@@ -175,6 +178,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: '작업 목록 삭제',
+      deleteTasks: '작업 삭제',
       addAnotherCard: '카드 추가',
       addAnotherList: '목록 추가',
       addAnotherTask: '작업 추가',

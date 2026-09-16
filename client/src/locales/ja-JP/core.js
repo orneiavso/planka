@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'タスクリスト',
+      deleteTaskList_title: 'タスクリストを削除',
+      areYouSureYouWantToDeleteTaskList: 'タスクリストを削除してもよろしいですか？すべてのタスクが完全に削除されます。',
       aboutPlanka: 'Plankaについて',
       account: 'アカウント',
       actions: 'アクション',
@@ -168,6 +171,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'タスクリストを削除',
+      deleteTasks: 'タスクを削除',
       addAnotherCard: '別のカードを追加',
       addAnotherList: '別のリストを追加',
       addAnotherTask: '別のタスクを追加',

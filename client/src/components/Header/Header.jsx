@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -24,17 +24,31 @@ const Header = React.memo(
     isLogouting,
     canEditProject,
     canEditUsers,
+    isBoardFrozen,
+    canToggleBoardFreeze,
+    shouldAutoUnlock,
     onProjectSettingsClick,
     onUsersClick,
     onNotificationDelete,
     onUserSettingsClick,
     onLogout,
+    onToggleBoardFreeze,
   }) => {
     const handleProjectSettingsClick = useCallback(() => {
       if (canEditProject) {
         onProjectSettingsClick();
       }
     }, [canEditProject, onProjectSettingsClick]);
+
+    useEffect(() => {
+      if (shouldAutoUnlock) {
+        onToggleBoardFreeze(false);
+      }
+    }, [shouldAutoUnlock, onToggleBoardFreeze]);
+
+    const handleBoardFreezeToggleClick = useCallback(() => {
+      onToggleBoardFreeze(!isBoardFrozen);
+    }, [isBoardFrozen, onToggleBoardFreeze]);
 
     const NotificationsPopup = usePopup(NotificationsStep, POPUP_PROPS);
     const UserPopup = usePopup(UserStep, POPUP_PROPS);
@@ -70,6 +84,15 @@ const Header = React.memo(
             </Menu.Menu>
           )}
           <Menu.Menu position="right">
+            {canToggleBoardFreeze && (
+              <Menu.Item
+                className={classNames(styles.item, styles.itemHoverable)}
+                onClick={handleBoardFreezeToggleClick}
+                title={isBoardFrozen ? 'Unlock list editing' : 'Lock list editing'}
+              >
+                <Icon fitted name={isBoardFrozen ? 'lock' : 'unlock'} />
+              </Menu.Item>
+            )}
             {canEditUsers && (
               <Menu.Item
                 className={classNames(styles.item, styles.itemHoverable)}
@@ -112,11 +135,15 @@ Header.propTypes = {
   isLogouting: PropTypes.bool.isRequired,
   canEditProject: PropTypes.bool.isRequired,
   canEditUsers: PropTypes.bool.isRequired,
+  isBoardFrozen: PropTypes.bool.isRequired,
+  canToggleBoardFreeze: PropTypes.bool.isRequired,
+  shouldAutoUnlock: PropTypes.bool.isRequired,
   onProjectSettingsClick: PropTypes.func.isRequired,
   onUsersClick: PropTypes.func.isRequired,
   onNotificationDelete: PropTypes.func.isRequired,
   onUserSettingsClick: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
+  onToggleBoardFreeze: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {

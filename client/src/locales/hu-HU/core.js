@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Feladatlista',
+      deleteTaskList_title: 'Feladatlista törlése',
+      areYouSureYouWantToDeleteTaskList: 'Biztosan törli a feladatlistát? Az összes feladat véglegesen törlődik.',
       aboutPlanka: 'Plankáról',
       account: 'Fiók',
       actions: 'Műveletek',
@@ -177,6 +180,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Feladatlista törlése',
+      deleteTasks: 'Feladatok törlése',
       addAnotherCard: 'Új kártya hozzáadása',
       addAnotherList: 'Új lista hozzáadása',
       addAnotherTask: 'Új feladat hozzáadása',

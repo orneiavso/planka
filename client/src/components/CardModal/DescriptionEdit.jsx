@@ -1,117 +1,61 @@
-import React, { useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'semantic-ui-react';
-import SimpleMDE from 'react-simplemde-editor';
-import { useClickAwayListener } from '../../lib/hooks';
 
-import { useNestedRef } from '../../hooks';
+import MarkdownEditor from './MarkdownEditor';
 
 import styles from './DescriptionEdit.module.scss';
 
 const DescriptionEdit = React.forwardRef(({ children, defaultValue, onUpdate }, ref) => {
   const [t] = useTranslation();
   const [isOpened, setIsOpened] = useState(false);
-  const [value, setValue] = useState(null);
 
-  const editorWrapperRef = useRef(null);
-  const codemirrorRef = useRef(null);
-  const [buttonRef, handleButtonRef] = useNestedRef();
+  const editorRef = useRef(null);
+  const valueRef = useRef(defaultValue || '');
 
   const open = useCallback(() => {
+    valueRef.current = defaultValue || '';
     setIsOpened(true);
-    setValue(defaultValue || '');
-  }, [defaultValue, setValue]);
+  }, [defaultValue]);
 
-  const close = useCallback(() => {
-    const cleanValue = value.trim() || null;
+  const submit = useCallback(() => {
+    const rawValue = editorRef.current ? editorRef.current.getValue() : valueRef.current;
+    const cleanValue = (rawValue || '').trim() || null;
 
     if (cleanValue !== defaultValue) {
       onUpdate(cleanValue);
     }
 
     setIsOpened(false);
-    setValue(null);
-  }, [defaultValue, onUpdate, value, setValue]);
+  }, [defaultValue, onUpdate]);
+
+  const cancel = useCallback(() => {
+    setIsOpened(false);
+  }, []);
 
   useImperativeHandle(
     ref,
     () => ({
       open,
-      close,
+      close: submit,
     }),
-    [open, close],
+    [open, submit],
   );
+
+  const handleChange = useCallback((value) => {
+    valueRef.current = value;
+  }, []);
+
+  const handleSubmit = useCallback(() => {
+    submit();
+  }, [submit]);
 
   const handleChildrenClick = useCallback(() => {
     if (!window.getSelection().toString()) {
       open();
     }
   }, [open]);
-
-  const handleFieldKeyDown = useCallback(
-    (event) => {
-      if (event.ctrlKey && event.key === 'Enter') {
-        close();
-      }
-    },
-    [close],
-  );
-
-  const handleSubmit = useCallback(() => {
-    close();
-  }, [close]);
-
-  const handleAwayClick = useCallback(() => {
-    if (!isOpened) {
-      return;
-    }
-
-    close();
-  }, [isOpened, close]);
-
-  const handleClickAwayCancel = useCallback(() => {
-    codemirrorRef.current.focus();
-  }, []);
-
-  const clickAwayProps = useClickAwayListener(
-    [editorWrapperRef, buttonRef],
-    handleAwayClick,
-    handleClickAwayCancel,
-  );
-
-  const handleGetCodemirrorInstance = useCallback((codemirror) => {
-    codemirrorRef.current = codemirror;
-  }, []);
-
-  const mdEditorOptions = useMemo(
-    () => ({
-      autoDownloadFontAwesome: false,
-      autofocus: true,
-      spellChecker: false,
-      status: false,
-      toolbar: [
-        'bold',
-        'italic',
-        'heading',
-        'strikethrough',
-        '|',
-        'quote',
-        'unordered-list',
-        'ordered-list',
-        'table',
-        '|',
-        'link',
-        'image',
-        '|',
-        'undo',
-        'redo',
-        '|',
-        'guide',
-      ],
-    }),
-    [],
-  );
 
   if (!isOpened) {
     return React.cloneElement(children, {
@@ -121,20 +65,15 @@ const DescriptionEdit = React.forwardRef(({ children, defaultValue, onUpdate }, 
 
   return (
     <Form onSubmit={handleSubmit}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <div {...clickAwayProps} ref={editorWrapperRef}>
-        <SimpleMDE
-          value={value}
-          options={mdEditorOptions}
-          placeholder={t('common.enterDescription')}
-          className={styles.field}
-          getCodemirrorInstance={handleGetCodemirrorInstance}
-          onKeyDown={handleFieldKeyDown}
-          onChange={setValue}
-        />
-      </div>
+      <MarkdownEditor
+        ref={editorRef}
+        defaultValue={defaultValue || ''}
+        onChange={handleChange}
+        onSubmit={submit}
+        onCancel={cancel}
+      />
       <div className={styles.controls}>
-        <Button positive ref={handleButtonRef} content={t('action.save')} />
+        <Button positive content={t('action.save')} />
       </div>
     </Form>
   );

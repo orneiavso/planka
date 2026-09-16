@@ -4,8 +4,83 @@ import { initReactI18next } from 'react-i18next';
 import formatDate from 'date-fns/format';
 import parseDate from 'date-fns/parse';
 import { registerLocale, setDefaultLocale } from 'react-datepicker';
+import { configure as configureMarkdownEditor } from '@gravity-ui/markdown-editor';
+// eslint-disable-next-line import/no-unresolved
+import { i18n as markdownEditorI18n } from '@gravity-ui/markdown-editor/_/i18n/i18n';
 
 import { embeddedLocales, languages } from './locales';
+
+// --- Język interfejsu edytora WYSIWYG (@gravity-ui/markdown-editor) ---
+// Biblioteka dostarcza tłumaczenia UI edytora TYLKO dla 'en' i 'ru'. Dla polskiego
+// rejestrujemy własny keyset paska narzędzi (tooltipy przycisków). Inne języki
+// spadają do angielskiego (do uzupełnienia analogicznie w razie potrzeby).
+markdownEditorI18n.registerKeyset('pl', 'menubar', {
+  bold: 'Pogrubienie',
+  checkbox: 'Pole wyboru',
+  code: 'Kod',
+  code_inline: 'Kod w tekście',
+  codeblock: 'Blok kodu',
+  colorify: 'Kolor tekstu',
+  colorify__color_blue: 'Niebieski',
+  colorify__color_default: 'Domyślny',
+  colorify__color_gray: 'Szary',
+  colorify__color_green: 'Zielony',
+  colorify__color_orange: 'Pomarańczowy',
+  colorify__color_red: 'Czerwony',
+  colorify__color_violet: 'Fioletowy',
+  colorify__color_yellow: 'Żółty',
+  colorify__group_text: 'Tekst',
+  cut: 'Sekcja zwijana',
+  emoji: 'Emoji',
+  emoji__hint: 'Emoji można dodać w trybie WYSIWYG lub ręcznie w składni',
+  file: 'Plik',
+  'folding-heading': 'Nagłówek zwijany',
+  'folding-heading__hint': 'Tekst pod nagłówkiem można zwijać i rozwijać',
+  gpt: 'Widżet GPT',
+  heading: 'Nagłówek',
+  heading1: 'Nagłówek 1',
+  heading2: 'Nagłówek 2',
+  heading3: 'Nagłówek 3',
+  heading4: 'Nagłówek 4',
+  heading5: 'Nagłówek 5',
+  heading6: 'Nagłówek 6',
+  hrule: 'Separator',
+  html: 'HTML',
+  image: 'Obraz',
+  italic: 'Kursywa',
+  link: 'Odnośnik',
+  list: 'Lista',
+  list__action_lift: 'Zmniejsz wcięcie',
+  list__action_sink: 'Zwiększ wcięcie',
+  list_action_disabled: 'Niezgodne z logiką listy',
+  mark: 'Wyróżnienie',
+  math: 'Wzór',
+  math_block: 'Blok wzoru',
+  math_inline: 'Wzór w tekście',
+  mermaid: 'Mermaid',
+  mono: 'Czcionka o stałej szerokości',
+  more_action: 'Więcej akcji',
+  move_list: 'Przenieś element listy',
+  note: 'Notatka',
+  olist: 'Lista numerowana',
+  quote: 'Cytat',
+  quotelink: 'Cytat z odnośnikiem',
+  redo: 'Ponów',
+  strike: 'Przekreślenie',
+  table: 'Tabela',
+  tabs: 'Zakładki',
+  text: 'Tekst',
+  ulist: 'Lista wypunktowana',
+  underline: 'Podkreślenie',
+  undo: 'Cofnij',
+});
+
+const EDITOR_LANGS = new Set(['en', 'ru', 'pl']);
+const applyEditorLang = () => {
+  const lng = (i18n.resolvedLanguage || 'en').split('-')[0];
+  configureMarkdownEditor({ lang: EDITOR_LANGS.has(lng) ? lng : 'en' });
+};
+applyEditorLang();
 
 i18n.dateFns = {
   locales: {},
@@ -33,6 +108,7 @@ i18n.dateFns = {
 
 i18n.on('languageChanged', () => {
   setDefaultLocale(i18n.resolvedLanguage);
+  applyEditorLang();
 });
 
 const formatDatePostProcessor = {

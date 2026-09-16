@@ -18,7 +18,7 @@ const Projects = React.memo(({ items, canAdd, onAdd }) => {
   const [t] = useTranslation();
 
   return (
-    <Container className={styles.cardsWrapper}>
+    <Container fluid className={styles.cardsWrapper}>
       <Grid className={styles.gridFix}>
         {items.map((item) => (
           <Grid.Column key={item.id} mobile={8} computer={4}>

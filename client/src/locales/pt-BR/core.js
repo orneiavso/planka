@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Lista de tarefas',
+      deleteTaskList_title: 'Excluir lista de tarefas',
+      areYouSureYouWantToDeleteTaskList: 'Tem certeza de que deseja excluir a lista de tarefas? Todas as tarefas serão removidas permanentemente.',
       aboutPlanka: 'Sobre o Planka',
       account: 'Conta',
       actions: 'Ações',
@@ -168,6 +171,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Excluir lista de tarefas',
+      deleteTasks: 'Excluir tarefas',
       addAnotherCard: 'Adicionar outro cartão',
       addAnotherList: 'Adicionar outra lista',
       addAnotherTask: 'Adicionar outra tarefa',

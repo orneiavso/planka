@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Seznam úkolů',
+      deleteTaskList_title: 'Smazat seznam úkolů',
+      areYouSureYouWantToDeleteTaskList: 'Opravdu chcete smazat seznam úkolů? Všechny úkoly budou trvale odstraněny.',
       aboutPlanka: 'O aplikaci Planka',
       account: 'Účet',
       actions: 'Akce',
@@ -172,6 +175,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Smazat seznam úkolů',
+      deleteTasks: 'Smazat úkoly',
       addAnotherCard: 'Přidat další kartu',
       addAnotherList: 'Přidat další seznam',
       addAnotherTask: 'Přidat další úkol',

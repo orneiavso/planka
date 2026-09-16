@@ -1,0 +1,47 @@
+.wrapper {
+  width: 100%;
+
+  // Cały box edytora — delikatna ramka + zaokrąglenie, jak w Planka demo.
+  :global(.g-md-wysiwyg-editor) {
+    border: 1px solid rgba(9, 30, 66, 0.14);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  // Pasek formatowania — jasnoszare tło. Padding tylko na wewnętrznych częściach
+  // (nie na generycznym .g-md-editor-sticky), inaczej wysokość sumuje się na
+  // zagnieżdżonych warstwach i pasek robi się za wysoki.
+  :global(.g-md-editor-sticky) {
+    background: #f4f5f7;
+  }
+
+  :global(.g-md-editor-sticky_part_left),
+  :global(.g-md-editor-sticky_part_right) {
+    padding: 3px 8px;
+  }
+
+  // Ukrywamy przycisk „Note" z paska formatowania (świadoma różnica vs Planka).
+  :global(.g-md-toolbar-group__s-button_id_note) {
+    display: none;
+  }
+
+  // Wciśnięty (aktywny) przycisk — ciemniejsza szarość zamiast pomarańczu.
+  :global(.g-md-toolbar-button.g-button_selected) {
+    color: #3d4757;
+  }
+
+  :global(.g-md-toolbar-button.g-button_selected)::before {
+    background-color: rgba(9, 30, 66, 0.13);
+  }
+
+  // Pole treści — białe tło + padding jak w demo, z sensowną minimalną wysokością.
+  :global(.g-md-wysiwyg-editor__editor) {
+    background: #ffffff;
+    padding: 6px 12px;
+    min-height: 168px;
+  }
+}
+
+.editor {
+  width: 100%;
+}

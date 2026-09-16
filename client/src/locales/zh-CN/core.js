@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: '任务列表',
+      deleteTaskList_title: '删除任务列表',
+      areYouSureYouWantToDeleteTaskList: '确定要删除任务列表吗？所有任务将被永久删除。',
       aboutPlanka: '关于 Planka',
       account: '账号',
       actions: '操作',
@@ -164,6 +167,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: '删除任务列表',
+      deleteTasks: '删除任务',
       addAnotherCard: '添加别的卡片',
       addAnotherList: '添加别的列表',
       addAnotherTask: '添加别的任务',

@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Zoznam úloh',
+      deleteTaskList_title: 'Odstrániť zoznam úloh',
+      areYouSureYouWantToDeleteTaskList: 'Naozaj chcete odstrániť zoznam úloh? Všetky úlohy budú natrvalo odstránené.',
       account: 'Účet',
       actions: 'Akcia',
       addAttachment_title: 'Pridať prílohu',
@@ -149,6 +152,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Odstrániť zoznam úloh',
+      deleteTasks: 'Odstrániť úlohy',
       addAnotherCard: 'Pridať ďalšiu kartu',
       addAnotherList: 'Pridať ďalší zoznam',
       addAnotherTask: 'Pridať ďalšiu úlohu',

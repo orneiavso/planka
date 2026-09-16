@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Takenlijst',
+      deleteTaskList_title: 'Takenlijst verwijderen',
+      areYouSureYouWantToDeleteTaskList: 'Weet je zeker dat je de takenlijst wilt verwijderen? Alle taken worden permanent verwijderd.',
       aboutPlanka: 'Over Planka',
       account: 'Account',
       actions: 'Acties',
@@ -169,6 +172,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Takenlijst verwijderen',
+      deleteTasks: 'Taken verwijderen',
       addAnotherCard: 'Voeg nog een kaart toe',
       addAnotherList: 'Voeg nog een lijst toe',
       addAnotherTask: 'Voeg nog een taak toe',

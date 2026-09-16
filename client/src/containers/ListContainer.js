@@ -13,10 +13,15 @@ const makeMapStateToProps = () => {
   return (state, { id, index }) => {
     const { name, color, isPersisted } = selectListById(state, id);
     const cardIds = selectCardIdsByListId(state, id);
+    const currentUser = selectors.selectCurrentUser(state);
     const currentUserMembership = selectors.selectCurrentUserMembershipForCurrentBoard(state);
+    const isBoardFrozen = selectors.selectIsBoardFrozen(state);
 
     const isCurrentUserEditor =
       !!currentUserMembership && currentUserMembership.role === BoardMembershipRoles.EDITOR;
+
+    const isAdmin = !!currentUser && currentUser.isAdmin;
+    const canArrangeLists = isCurrentUserEditor && isAdmin && !isBoardFrozen;
 
     return {
       id,
@@ -26,6 +31,7 @@ const makeMapStateToProps = () => {
       isPersisted,
       cardIds,
       canEdit: isCurrentUserEditor,
+      canArrangeLists,
     };
   };
 };

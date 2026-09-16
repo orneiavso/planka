@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: "Vazifalar ro'yxati",
+      deleteTaskList_title: "Vazifalar ro'yxatini o'chirish",
+      areYouSureYouWantToDeleteTaskList: "Vazifalar ro'yxatini o'chirishga ishonchingiz komilmi? Barcha vazifalar butunlay o'chiriladi.",
       account: 'Profil',
       actions: 'Amallar',
       addAttachment_title: "Ilova Qo'shish",
@@ -148,6 +151,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: "Vazifalar ro'yxatini o'chirish",
+      deleteTasks: "Vazifalarni o'chirish",
       addAnotherCard: "Yana karta qo'shish",
       addAnotherList: "Yana ro'yxat qo'shish",
       addAnotherTask: "Yana vazifa qo'shish",

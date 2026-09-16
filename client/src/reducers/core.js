@@ -3,9 +3,24 @@ import { LOCATION_CHANGE_HANDLE } from '../lib/redux-router';
 import ActionTypes from '../constants/ActionTypes';
 import ModalTypes from '../constants/ModalTypes';
 
+const BOARD_FREEZE_STORAGE_KEY = 'plankaBoardFrozen';
+
+const readInitialBoardFrozen = () => {
+  try {
+    const stored = window.localStorage.getItem(BOARD_FREEZE_STORAGE_KEY);
+    if (stored === null) {
+      return true;
+    }
+    return stored === '1';
+  } catch (e) {
+    return true;
+  }
+};
+
 const initialState = {
   isLogouting: false,
   currentModal: null,
+  isBoardFrozen: readInitialBoardFrozen(),
 };
 
 // eslint-disable-next-line default-param-last
@@ -16,6 +31,16 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         currentModal: null,
+      };
+    case ActionTypes.BOARD_FREEZE_TOGGLE:
+      try {
+        window.localStorage.setItem(BOARD_FREEZE_STORAGE_KEY, payload.isFrozen ? '1' : '0');
+      } catch (e) {
+        // ignore storage errors
+      }
+      return {
+        ...state,
+        isBoardFrozen: payload.isFrozen,
       };
     case ActionTypes.LOGOUT__ACCESS_TOKEN_INVALIDATE:
       return {

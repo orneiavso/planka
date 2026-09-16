@@ -8,6 +8,8 @@ export const selectAccessToken = ({ auth: { accessToken } }) => accessToken;
 
 export const selectIsLogouting = ({ core: { isLogouting } }) => isLogouting;
 
+export const selectIsBoardFrozen = ({ core: { isBoardFrozen } }) => isBoardFrozen;
+
 const nextPosition = (items, index, excludedId) => {
   const filteredItems = isUndefined(excludedId)
     ? items
@@ -114,6 +116,7 @@ export const selectNextTaskPosition = createSelector(
 export default {
   selectAccessToken,
   selectIsLogouting,
+  selectIsBoardFrozen,
   selectNextBoardPosition,
   selectNextLabelPosition,
   selectNextListPosition,

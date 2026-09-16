@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Daftar tugas',
+      deleteTaskList_title: 'Hapus daftar tugas',
+      areYouSureYouWantToDeleteTaskList: 'Apakah Anda yakin ingin menghapus daftar tugas? Semua tugas akan dihapus secara permanen.',
       aboutPlanka: 'Tentang Planka',
       account: 'Akun',
       actions: 'Tindakan',
@@ -168,6 +171,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Hapus daftar tugas',
+      deleteTasks: 'Hapus tugas',
       addAnotherCard: 'Tambahkan kartu lain',
       addAnotherList: 'Tambahkan daftar lain',
       addAnotherTask: 'Tambahkan aksi lain',

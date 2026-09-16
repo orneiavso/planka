@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Списък със задачи',
+      deleteTaskList_title: 'Изтриване на списъка със задачи',
+      areYouSureYouWantToDeleteTaskList: 'Сигурни ли сте, че искате да изтриете списъка със задачи? Всички задачи ще бъдат премахнати завинаги.',
       aboutPlanka: 'За Planka',
       account: 'Акаунт',
       actions: 'Действия',
@@ -176,6 +179,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Изтриване на списъка със задачи',
+      deleteTasks: 'Изтриване на задачите',
       addAnotherCard: 'Добавяне на друга карта',
       addAnotherList: 'Добавяне на друг списък',
       addAnotherTask: 'Добавяне на друга задача',

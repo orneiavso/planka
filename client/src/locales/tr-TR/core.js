@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Görev listesi',
+      deleteTaskList_title: 'Görev listesini sil',
+      areYouSureYouWantToDeleteTaskList: 'Görev listesini silmek istediğinizden emin misiniz? Tüm görevler kalıcı olarak silinecek.',
       account: 'Hesap',
       actions: 'Eylemler',
       addAttachment_title: 'Dosya ekle',
@@ -152,6 +155,8 @@ export default {
       writeComment: 'Yorum yazın...',
     },
     action: {
+      deleteTaskList: 'Görev listesini sil',
+      deleteTasks: 'Görevleri sil',
       addAnotherCard: 'Başka bir kart ekle',
       addAnotherList: 'Başka bir liste ekle',
       addAnotherTask: 'Başka bir görev ekle',

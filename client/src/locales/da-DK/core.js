@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Opgaveliste',
+      deleteTaskList_title: 'Slet opgaveliste',
+      areYouSureYouWantToDeleteTaskList: 'Er du sikker på, at du vil slette opgavelisten? Alle opgaver bliver slettet permanent.',
       aboutPlanka: 'Om Planka',
       account: 'Konto',
       actions: 'Handlinger',
@@ -178,6 +181,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Slet opgaveliste',
+      deleteTasks: 'Slet opgaver',
       addAnotherCard: 'Tilføj endnu et kort',
       addAnotherList: 'Tilføj endnu en liste',
       addAnotherTask: 'Tilføj endnu en opgave',

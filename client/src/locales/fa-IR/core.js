@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'فهرست وظایف',
+      deleteTaskList_title: 'حذف فهرست وظایف',
+      areYouSureYouWantToDeleteTaskList: 'آیا مطمئن هستید که می‌خواهید فهرست وظایف را حذف کنید؟ همه وظایف برای همیشه حذف خواهند شد.',
       aboutPlanka: 'درباره Planka',
       account: 'حساب کاربری',
       actions: 'اقدامات',
@@ -177,6 +180,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'حذف فهرست وظایف',
+      deleteTasks: 'حذف وظایف',
       addAnotherCard: 'اضافه کردن کارت دیگر',
       addAnotherList: 'اضافه کردن لیست دیگر',
       addAnotherTask: 'اضافه کردن وظیفه دیگر',

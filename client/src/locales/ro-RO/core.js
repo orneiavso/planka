@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Listă de sarcini',
+      deleteTaskList_title: 'Șterge lista de sarcini',
+      areYouSureYouWantToDeleteTaskList: 'Sigur doriți să ștergeți lista de sarcini? Toate sarcinile vor fi eliminate definitiv.',
       aboutPlanka: 'Despre Planka',
       account: 'Cont',
       actions: 'Acțiuni',
@@ -169,6 +172,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Șterge lista de sarcini',
+      deleteTasks: 'Șterge sarcinile',
       addAnotherCard: 'Adăugați un alt card',
       addAnotherList: 'Adăugați o altă listă',
       addAnotherTask: 'Adăugați o altă sarcină',

@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'قائمة المهام',
+      deleteTaskList_title: 'حذف قائمة المهام',
+      areYouSureYouWantToDeleteTaskList: 'هل أنت متأكد أنك تريد حذف قائمة المهام؟ سيتم حذف جميع المهام نهائيًا.',
       aboutPlanka: 'حول Planka',
       account: 'الحساب',
       actions: 'إجراءات',
@@ -175,6 +178,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'حذف قائمة المهام',
+      deleteTasks: 'حذف المهام',
       addAnotherCard: 'إضافة بطاقة أخرى',
       addAnotherList: 'إضافة قائمة أخرى',
       addAnotherTask: 'إضافة مهمة أخرى',

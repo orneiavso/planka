@@ -59,7 +59,15 @@ logout.invalidateAccessToken = () => ({
   payload: {},
 });
 
+const toggleBoardFreeze = (isFrozen) => ({
+  type: ActionTypes.BOARD_FREEZE_TOGGLE,
+  payload: {
+    isFrozen,
+  },
+});
+
 export default {
   initializeCore,
   logout,
+  toggleBoardFreeze,
 };

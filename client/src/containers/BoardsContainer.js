@@ -9,11 +9,12 @@ const mapStateToProps = (state) => {
   const { boardId } = selectors.selectPath(state);
   const boards = selectors.selectBoardsForCurrentProject(state);
   const isCurrentUserManager = selectors.selectIsCurrentUserManagerForCurrentProject(state);
+  const isBoardFrozen = selectors.selectIsBoardFrozen(state);
 
   return {
     items: boards,
     currentId: boardId,
-    canEdit: isCurrentUserManager,
+    canEdit: isCurrentUserManager && !isBoardFrozen,
   };
 };
 

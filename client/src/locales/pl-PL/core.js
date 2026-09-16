@@ -17,7 +17,7 @@ export default {
     common: {
       aboutPlanka: 'O Planka',
       account: 'Konto',
-      actions: 'Akcje',
+      actions: 'Komentarze',
       addAttachment_title: 'Dodaj Załącznik',
       addComment: 'Dodaj komentarz',
       addManager_title: 'Dodaj Zarządce',
@@ -155,6 +155,10 @@ export default {
       subscribeToMyOwnCardsByDefault: 'Zapisz mnie do moich kart automatycznie',
       taskActions_title: 'Akcje Zadania',
       tasks: 'Zadania',
+      taskList: 'Lista zadań',
+      deleteTaskList_title: 'Usuń zadania',
+      areYouSureYouWantToDeleteTaskList:
+        'Czy na pewno chcesz usunąć listę zadań? Wszystkie zadania zostaną trwale usunięte.',
       thereIsNoPreviewAvailableForThisAttachment: 'Brak podglądu dostępnego dla tego załącznika.',
       time: 'Czas',
       title: 'Tytuł',
@@ -198,6 +202,8 @@ export default {
       deleteBoard: 'Usuń tablicę',
       deleteCard: 'Usuń kartę',
       deleteCard_title: 'Usuń Kartę',
+      deleteTaskList: 'Usuń zadania',
+      deleteTasks: 'Usuń zadania',
       deleteComment: 'Usuń komentarz',
       deleteImage: 'Usuń obraz',
       deleteLabel: 'Usuń oznaczenie',

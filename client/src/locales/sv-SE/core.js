@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Uppgiftslista',
+      deleteTaskList_title: 'Ta bort uppgiftslista',
+      areYouSureYouWantToDeleteTaskList: 'Är du säker på att du vill ta bort uppgiftslistan? Alla uppgifter tas bort permanent.',
       account: 'Konto',
       actions: 'Åtgärder',
       addAttachment_title: 'Bifoga',
@@ -151,6 +154,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Ta bort uppgiftslista',
+      deleteTasks: 'Ta bort uppgifter',
       addAnotherCard: 'Lägg till ytterligare ett kort',
       addAnotherList: 'Lägg till ytterligare en lista',
       addAnotherTask: 'Lägg till ytterligare en uppgift',

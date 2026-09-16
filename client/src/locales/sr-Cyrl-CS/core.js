@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Списак задатака',
+      deleteTaskList_title: 'Обриши списак задатака',
+      areYouSureYouWantToDeleteTaskList: 'Да ли сте сигурни да желите да обришете списак задатака? Сви задаци ће бити трајно уклоњени.',
       aboutPlanka: 'O Planka',
       account: 'Налог',
       actions: 'Радње',
@@ -176,6 +179,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Обриши списак задатака',
+      deleteTasks: 'Обриши задатке',
       addAnotherCard: 'Додај још једну картицу',
       addAnotherList: 'Додај још један списак',
       addAnotherTask: 'Додај још један задатак',

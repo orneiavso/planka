@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const webpack = require('webpack');
 
 const BASE_URL_PLACEHOLDER = 'BASE_URL_PLACEHOLDER';
 
@@ -39,6 +40,53 @@ const replaceBaseUrl = (compiler) => {
 };
 
 module.exports = function override(config, env) {
+  // Polyfille node-core dla zależności @gravity-ui/markdown-editor (@diplodoc/transform)
+  // — webpack 5 nie dostarcza ich domyślnie.
+  config.resolve = config.resolve || {};
+  config.resolve.fallback = {
+    ...(config.resolve.fallback || {}),
+    process: require.resolve('process/browser.js'),
+    buffer: require.resolve('buffer/'),
+    path: require.resolve('path-browserify'),
+    util: require.resolve('util/'),
+    fs: false,
+    os: false,
+    crypto: false,
+    stream: false,
+    zlib: false,
+    http: false,
+    https: false,
+    url: false,
+    assert: false,
+    net: false,
+    tls: false,
+    child_process: false,
+    vm: false,
+  };
+  config.plugins = [
+    ...config.plugins,
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js',
+      Buffer: ['buffer', 'Buffer'],
+    }),
+  ];
+
+  // Wyłącz "fullySpecified" dla modułów ESM (gravity-ui / prosemirror / lezer),
+  // inaczej webpack 5 wymaga rozszerzeń przy importach i wywala build.
+  config.module = config.module || { rules: [] };
+  config.module.rules.push({
+    test: /\.m?js$/,
+    resolve: { fullySpecified: false },
+  });
+
+  // Szybki build dla środowiska DEV (OPDEV_FAST=1): bez minifikacji (terser to
+  // największy konsument RAM/CPU) — mieści się w 4 GB RAM VM podmana i buduje
+  // znacznie szybciej. Produkcyjne buildy (bez flagi) pozostają zminifikowane.
+  if (process.env.OPDEV_FAST === '1') {
+    config.optimization = config.optimization || {};
+    config.optimization.minimize = false;
+  }
+
   if (env === 'production') {
     const plugins = config.plugins.map((plugin) => {
       if (plugin.constructor.name === 'InterpolateHtmlPlugin') {

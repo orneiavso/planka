@@ -16,7 +16,15 @@ import globalStyles from '../../styles.module.scss';
 const parseDndId = (dndId) => dndId.split(':')[1];
 
 const Board = React.memo(
-  ({ listIds, isCardModalOpened, canEdit, onListCreate, onListMove, onCardMove }) => {
+  ({
+    listIds,
+    isCardModalOpened,
+    canEdit,
+    canArrangeLists,
+    onListCreate,
+    onListMove,
+    onCardMove,
+  }) => {
     const [t] = useTranslation();
     const [isListAddOpened, setIsListAddOpened] = useState(false);
 
@@ -51,6 +59,9 @@ const Board = React.memo(
 
         switch (type) {
           case DroppableTypes.LIST:
+            if (!canArrangeLists) {
+              return;
+            }
             onListMove(id, destination.index);
 
             break;
@@ -61,7 +72,7 @@ const Board = React.memo(
           default:
         }
       },
-      [onListMove, onCardMove],
+      [canArrangeLists, onListMove, onCardMove],
     );
 
     const handleMouseDown = useCallback(
@@ -157,7 +168,7 @@ const Board = React.memo(
                       <ListContainer key={listId} id={listId} index={index} />
                     ))}
                     {placeholder}
-                    {canEdit && (
+                    {canArrangeLists && (
                       <div data-drag-scroller className={styles.list}>
                         {isListAddOpened ? (
                           <ListAdd onCreate={onListCreate} onClose={handleAddListClose} />
@@ -193,6 +204,7 @@ Board.propTypes = {
   listIds: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   isCardModalOpened: PropTypes.bool.isRequired,
   canEdit: PropTypes.bool.isRequired,
+  canArrangeLists: PropTypes.bool.isRequired,
   onListCreate: PropTypes.func.isRequired,
   onListMove: PropTypes.func.isRequired,
   onCardMove: PropTypes.func.isRequired,

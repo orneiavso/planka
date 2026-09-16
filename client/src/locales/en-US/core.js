@@ -153,6 +153,10 @@ export default {
       subscribeToMyOwnCardsByDefault: 'Subscribe to my own cards by default',
       taskActions_title: 'Task Actions',
       tasks: 'Tasks',
+      taskList: 'Task list',
+      deleteTaskList_title: 'Delete Task List',
+      areYouSureYouWantToDeleteTaskList:
+        'Are you sure you want to delete the task list? All tasks will be permanently removed.',
       thereIsNoPreviewAvailableForThisAttachment:
         'There is no preview available for this attachment.',
       time: 'Time',
@@ -196,6 +200,8 @@ export default {
       deleteBoard: 'Delete board',
       deleteCard: 'Delete card',
       deleteCard_title: 'Delete Card',
+      deleteTaskList: 'Delete task list',
+      deleteTasks: 'Delete tasks',
       deleteComment: 'Delete comment',
       deleteImage: 'Delete image',
       deleteLabel: 'Delete label',

@@ -15,6 +15,9 @@ export default {
 
   translation: {
     common: {
+      taskList: 'Lista de tareas',
+      deleteTaskList_title: 'Eliminar lista de tareas',
+      areYouSureYouWantToDeleteTaskList: '¿Estás seguro de que quieres eliminar la lista de tareas? Se eliminarán permanentemente todas las tareas.',
       account: 'Cuenta',
       actions: 'Acciones',
       addAttachment_title: 'Añadir un adjunto',
@@ -137,6 +140,8 @@ export default {
     },
 
     action: {
+      deleteTaskList: 'Eliminar lista de tareas',
+      deleteTasks: 'Eliminar tareas',
       addAnotherCard: 'Añadir otra tarjeta',
       addAnotherList: 'Añadir otra lista',
       addAnotherTask: 'Añadir otra tarea',

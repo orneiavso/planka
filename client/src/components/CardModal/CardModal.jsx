@@ -83,6 +83,7 @@ const CardModal = React.memo(
   }) => {
     const [t] = useTranslation();
     const [isLinkCopied, setIsLinkCopied] = useState(false);
+    const [manualTasksVisible, setManualTasksVisible] = useState(null);
 
     const isGalleryOpened = useRef(false);
 
@@ -178,6 +179,15 @@ const CardModal = React.memo(
       onClose();
     }, [onClose]);
 
+    const handleTaskListShow = useCallback(() => {
+      setManualTasksVisible(true);
+    }, []);
+
+    const handleTaskListDelete = useCallback(() => {
+      tasks.forEach((task) => onTaskDelete(task.id));
+      setManualTasksVisible(false);
+    }, [tasks, onTaskDelete]);
+
     const AttachmentAddPopup = usePopup(AttachmentAddStep);
     const BoardMembershipsPopup = usePopup(BoardMembershipsStep);
     const LabelsPopup = usePopup(LabelsStep);
@@ -188,6 +198,8 @@ const CardModal = React.memo(
 
     const userIds = users.map((user) => user.id);
     const labelIds = labels.map((label) => label.id);
+
+    const isTasksVisible = manualTasksVisible === null ? tasks.length > 0 : manualTasksVisible;
 
     const contentNode = (
       <Grid className={styles.grid}>
@@ -400,7 +412,7 @@ const CardModal = React.memo(
                 </div>
               </div>
             )}
-            {(tasks.length > 0 || canEdit) && (
+            {isTasksVisible && (
               <div className={styles.contentModule}>
                 <div className={styles.moduleWrapper}>
                   <Icon name="check square outline" className={styles.moduleIcon} />
@@ -498,6 +510,24 @@ const CardModal = React.memo(
                     {t('common.attachment')}
                   </Button>
                 </AttachmentAddPopup>
+                {isTasksVisible ? (
+                  <DeletePopup
+                    title="common.deleteTaskList"
+                    content="common.areYouSureYouWantToDeleteTaskList"
+                    buttonContent="action.deleteTaskList"
+                    onConfirm={handleTaskListDelete}
+                  >
+                    <Button fluid className={styles.actionButton}>
+                      <Icon name="trash alternate outline" className={styles.actionIcon} />
+                      {t('action.deleteTasks')}
+                    </Button>
+                  </DeletePopup>
+                ) : (
+                  <Button fluid className={styles.actionButton} onClick={handleTaskListShow}>
+                    <Icon name="check square outline" className={styles.actionIcon} />
+                    {t('common.taskList')}
+                  </Button>
+                )}
               </div>
               <div className={styles.actions}>
                 <span className={styles.actionsTitle}>{t('common.actions')}</span>

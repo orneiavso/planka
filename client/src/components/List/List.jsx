@@ -27,6 +27,7 @@ const List = React.memo(
     isPersisted,
     cardIds,
     canEdit,
+    canArrangeLists,
     onUpdate,
     onDelete,
     onSort,
@@ -39,10 +40,10 @@ const List = React.memo(
     const cardsWrapper = useRef(null);
 
     const handleHeaderClick = useCallback(() => {
-      if (isPersisted && canEdit) {
+      if (isPersisted && canArrangeLists) {
         nameEdit.current.open();
       }
-    }, [isPersisted, canEdit]);
+    }, [isPersisted, canArrangeLists]);
 
     const handleNameUpdate = useCallback(
       (newName) => {
@@ -114,7 +115,7 @@ const List = React.memo(
     );
 
     return (
-      <Draggable draggableId={`list:${id}`} index={index} isDragDisabled={!isPersisted || !canEdit}>
+      <Draggable draggableId={`list:${id}`} index={index} isDragDisabled={!isPersisted || !canArrangeLists}>
         {({ innerRef, draggableProps, dragHandleProps }) => (
           <div
             {...draggableProps} // eslint-disable-line react/jsx-props-no-spreading
@@ -127,7 +128,7 @@ const List = React.memo(
                                            jsx-a11y/no-static-element-interactions */}
               <div
                 {...dragHandleProps} // eslint-disable-line react/jsx-props-no-spreading
-                className={classNames(styles.header, canEdit && styles.headerEditable)}
+                className={classNames(styles.header, canArrangeLists && styles.headerEditable)}
                 onClick={handleHeaderClick}
               >
                 <NameEdit ref={nameEdit} defaultValue={name} onUpdate={handleNameUpdate}>
@@ -144,7 +145,7 @@ const List = React.memo(
                     {name}
                   </div>
                 </NameEdit>
-                {isPersisted && canEdit && (
+                {isPersisted && canArrangeLists && (
                   <ActionsPopup
                     onNameEdit={handleNameEdit}
                     onCardAdd={handleCardAdd}
@@ -191,6 +192,7 @@ List.propTypes = {
   isPersisted: PropTypes.bool.isRequired,
   cardIds: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   canEdit: PropTypes.bool.isRequired,
+  canArrangeLists: PropTypes.bool.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
