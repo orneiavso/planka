@@ -9,11 +9,11 @@ const readInitialBoardFrozen = () => {
   try {
     const stored = window.localStorage.getItem(BOARD_FREEZE_STORAGE_KEY);
     if (stored === null) {
-      return true;
+      return false;
     }
     return stored === '1';
   } catch (e) {
-    return true;
+    return false;
   }
 };
 

@@ -75,6 +75,27 @@ markdownEditorI18n.registerKeyset('pl', 'menubar', {
   undo: 'Cofnij',
 });
 
+// Placeholdery bloków edytora dla polskiego (biblioteka ma je tylko dla en/ru,
+// inaczej pokazuje surowy klucz, np. "doc_empty"). doc_empty celowo puste -
+// pusty edytor ma nie pokazywać żadnej podpowiedzi.
+markdownEditorI18n.registerKeyset('pl', 'placeholder', {
+  doc_empty: '',
+  doc_empty_mobile: '',
+  checkbox: 'Dodaj opis zadania lub punktu kontrolnego',
+  codeblock: 'Dodaj kod lub tekst do bloku',
+  deflist_term: 'Termin definicji',
+  deflist_desc: 'Opis definicji',
+  heading: 'Nagłówek',
+  cut_title: 'Tytuł sekcji zwijanej',
+  cut_content: 'Dodaj tekst wyświetlany po kliknięciu',
+  note_title: 'Tytuł notatki',
+  note_content: 'Dodaj treść notatki',
+  block: 'Blok z dekoracją',
+  layout_cell: 'Tekst',
+  table_cell: 'Zawartość komórki',
+  select_filter: 'Szukaj',
+});
+
 const EDITOR_LANGS = new Set(['en', 'ru', 'pl']);
 const applyEditorLang = () => {
   const lng = (i18n.resolvedLanguage || 'en').split('-')[0];

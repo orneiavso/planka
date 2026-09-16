@@ -1,15 +1,21 @@
-import React, { useEffect, useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useMarkdownEditor, MarkdownEditorView } from '@gravity-ui/markdown-editor';
+import { ThemeProvider, ToasterProvider, ToasterComponent, Toaster } from '@gravity-ui/uikit';
 
 import styles from './MarkdownEditor.module.scss';
 
-// Własna, lekka nakładka na bibliotekę @gravity-ui/markdown-editor (MIT).
-// Tryb WYSIWYG — formatowanie (pogrubienie, nagłówki itp.) widać wizualnie,
-// bez ręcznego wpisywania znaczników markdown. Zachowujemy domyślny pasek
-// (m.in. „Cytat"); przycisk „Note" ukrywamy w CSS (patrz MarkdownEditor.module.scss).
+// Wlasna, lekka nakladka na biblioteke @gravity-ui/markdown-editor (MIT).
+// Tryb WYSIWYG - formatowanie (pogrubienie, naglowki itp.) widac wizualnie,
+// bez recznego wpisywania znacznikow markdown. Zachowujemy domyslny pasek
+// (m.in. "Cytat"); przycisk "Note" ukrywamy w CSS (patrz MarkdownEditor.module.scss).
+// Providery gravity (Theme/Toaster) trzymamy TU, lokalnie przy edytorze - NIE
+// globalnie w Root - zeby wrapper .g-root nie obejmowal boardu i nie psul
+// react-beautiful-dnd (przeciaganie kart miedzy listami).
 
 const MarkdownEditor = React.forwardRef(({ defaultValue, onChange, onSubmit, onCancel }, ref) => {
+  const toaster = useMemo(() => new Toaster(), []);
+
   const editor = useMarkdownEditor({
     md: {
       breaks: true,
@@ -48,9 +54,14 @@ const MarkdownEditor = React.forwardRef(({ defaultValue, onChange, onSubmit, onC
   }, [editor, onChange, onSubmit, onCancel]);
 
   return (
-    <div className={styles.wrapper}>
-      <MarkdownEditorView autofocus stickyToolbar editor={editor} className={styles.editor} />
-    </div>
+    <ThemeProvider theme="light">
+      <ToasterProvider toaster={toaster}>
+        <div className={styles.wrapper}>
+          <MarkdownEditorView autofocus stickyToolbar editor={editor} className={styles.editor} />
+        </div>
+        <ToasterComponent />
+      </ToasterProvider>
+    </ThemeProvider>
   );
 });
 
