@@ -1,4 +1,4 @@
-FROM node:18-alpine AS server-dependencies
+FROM node:20-alpine AS server-dependencies
 
 RUN apk -U upgrade \
   && apk add build-base python3 --no-cache
@@ -12,7 +12,7 @@ RUN npm install npm --global \
   && pnpm import \
   && pnpm install --prod
 
-FROM node:lts AS client
+FROM node:20 AS client
 
 WORKDIR /app
 
@@ -21,11 +21,11 @@ COPY client .
 RUN npm install npm --global \
   && npm install pnpm@9 --global \
   && pnpm import \
-  && pnpm install --prod
+  && pnpm install
 
-RUN DISABLE_ESLINT_PLUGIN=true npm run build
+RUN DISABLE_ESLINT_PLUGIN=true NODE_OPTIONS=--max-old-space-size=3072 npm run build
 
-FROM node:18-alpine
+FROM node:20-alpine
 
 RUN apk -U upgrade \
   && apk add bash --no-cache
