@@ -14,8 +14,9 @@ Elegant open source project tracking - an independent, modernized fork.
 ## What this fork adds
 
 - WYSIWYG rich-text editing for card descriptions and comments - markdown still supported
-- Security backports on the 1.26.3 base - path-traversal fix, SSRF hardening *(in progress)*
-- A few other modernizing improvements *(in progress)*
+- Security hardening on the 1.26.3 base - path-traversal containment for static uploads and SSRF guards on outbound webhooks
+- Reproducible container builds from source on an up-to-date Node 20 base
+- Ongoing dependency and base-image maintenance
 
 ## Features
 
@@ -29,8 +30,41 @@ Elegant open source project tracking - an independent, modernized fork.
 
 ## Deployment
 
-Build and run with the included `Dockerfile` / `docker-compose.yml`.
-Configuration follows the standard PLANKA environment variables.
+Build and run with the included `Dockerfile` / `docker-compose.yml`, or pull a
+prebuilt image (see below). Configuration follows the standard PLANKA
+environment variables.
+
+## Container images
+
+Prebuilt multi-architecture images (`linux/amd64` and `linux/arm64`) are
+published to Docker Hub and track the latest fork release:
+
+**https://hub.docker.com/r/orneiavso/planka**
+
+```bash
+# Always-latest tag
+docker pull orneiavso/planka:latest
+
+# Pin to a specific release (recommended for production)
+docker pull orneiavso/planka:1.26.3_n.2.4.4
+```
+
+Every published image is built entirely from source via the included
+`Dockerfile` on a Node 20 base (Alpine), with system packages upgraded at build
+time. Each release's Git tag matches its image tag, so the source that produces
+any image is fully reproducible (AGPL-3.0 corresponding source).
+
+## Versioning
+
+The current release is **`1.26.3+n.2.4.4`**.
+
+Versions follow the scheme **`1.26.3+n.x.x.x`**: `1.26.3` is the upstream
+AGPL-3.0 PLANKA base this fork is built on, and the `+n.x.x.x` suffix tracks
+this fork's own independent releases (modernizations and security maintenance).
+
+Because `+` is not a valid character in a Docker image tag, the equivalent image
+tag replaces it with an underscore - version `1.26.3+n.2.4.4` is published as
+image tag `1.26.3_n.2.4.4`.
 
 ## Tech stack
 
