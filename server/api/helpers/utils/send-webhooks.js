@@ -1,3 +1,82 @@
+const net = require('net');
+
+// Cloud instance metadata endpoints are never a legitimate webhook target.
+const METADATA_HOSTS = new Set(['169.254.169.254', 'fd00:ec2::254']);
+
+function isPrivateIpv4(ip) {
+  const parts = ip.split('.').map(Number);
+  if (parts.length !== 4 || parts.some((n) => Number.isNaN(n) || n < 0 || n > 255)) {
+    return false;
+  }
+
+  const [a, b] = parts;
+  if (a === 0 || a === 10 || a === 127) {
+    return true;
+  }
+  if (a === 169 && b === 254) {
+    return true;
+  }
+  if (a === 172 && b >= 16 && b <= 31) {
+    return true;
+  }
+  if (a === 192 && b === 168) {
+    return true;
+  }
+
+  return false;
+}
+
+function isPrivateIpv6(ip) {
+  const value = ip.toLowerCase();
+  if (value === '::1') {
+    return true;
+  }
+  if (value.startsWith('fe80')) {
+    return true;
+  }
+  if (value.startsWith('fc') || value.startsWith('fd')) {
+    return true;
+  }
+  if (value.startsWith('::ffff:')) {
+    return isPrivateIpv4(value.split(':').pop());
+  }
+
+  return false;
+}
+
+// Basic SSRF guard for outbound webhook calls: only http(s), never cloud
+// metadata, and (unless explicitly allowed) no private/loopback/link-local IP
+// literals. DNS names are not resolved here - full anti-rebinding resolution is
+// tracked for a later iteration.
+function isSafeWebhookUrl(rawUrl) {
+  let url;
+  try {
+    url = new URL(rawUrl);
+  } catch (error) {
+    return false;
+  }
+
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    return false;
+  }
+
+  const host = url.hostname.replace(/^\[/, '').replace(/\]$/, '');
+  if (METADATA_HOSTS.has(host)) {
+    return false;
+  }
+
+  if (process.env.WEBHOOKS_ALLOW_PRIVATE_TARGETS !== 'true') {
+    if (net.isIPv4(host) && isPrivateIpv4(host)) {
+      return false;
+    }
+    if (net.isIPv6(host) && isPrivateIpv6(host)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 const EVENT_TYPES = {
   ACTION_CREATE: 'actionCreate',
   ACTION_DELETE: 'actionDelete',
@@ -166,6 +245,11 @@ module.exports = {
 
     sails.config.custom.webhooks.forEach((webhook) => {
       if (!webhook.url) {
+        return;
+      }
+
+      if (!isSafeWebhookUrl(webhook.url)) {
+        sails.log.warn(`Webhook skipped: blocked or unsafe URL (${webhook.url})`);
         return;
       }
 
