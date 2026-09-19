@@ -1,6 +1,7 @@
 const serveStatic = require('serve-static');
 const sails = require('sails');
 const path = require('path');
+const fs = require('fs');
 
 // Remove prefix from urlPath, assuming completely matches a subpath of
 // urlPath. The result preserves query params and fragment if present
@@ -32,22 +33,68 @@ function removeRoutePrefix(prefix, urlPath) {
   return urlPath;
 }
 
+// Resolve a request path against the static root and reject anything that
+// escapes it. serve-static already blocks literal '..', but decoding here also
+// catches encoded traversal variants, NUL bytes and backslashes, and keeps the
+// containment check explicit and independent of the library version.
+function resolveContainedPath(root, urlPath) {
+  const pathname = urlPath.split('?')[0].split('#')[0];
+
+  let decoded;
+  try {
+    decoded = decodeURIComponent(pathname);
+  } catch (error) {
+    return null;
+  }
+
+  if (decoded.includes('\0') || decoded.includes('\\')) {
+    return null;
+  }
+
+  const target = path.resolve(root, `.${decoded.startsWith('/') ? '' : '/'}${decoded}`);
+
+  if (target !== root && !target.startsWith(root + path.sep)) {
+    return null;
+  }
+
+  return target;
+}
+
 function staticDirServer(prefix, dirFn) {
   return function handleReq(req, res, next) {
     // Custom config properties are not available when the routes config is
     // loaded, so resolve the target value just before serving the request.
     const dir = dirFn();
-    const staticServer = serveStatic(dir, { index: false });
 
     const reqPath = req.url;
-    if (reqPath.startsWith(prefix)) {
-      // serve-static treats the request url as a sub-path of
-      // static root; remove the leading route prefix so the static root
-      // doesn't have to include the prefix as a subdirectory.
-      req.url = removeRoutePrefix(prefix, req.url);
-      return staticServer(req, res, next);
+    if (!reqPath.startsWith(prefix)) {
+      return next();
     }
-    return next();
+
+    // serve-static treats the request url as a sub-path of static root; remove
+    // the leading route prefix so the static root doesn't have to include the
+    // prefix as a subdirectory.
+    req.url = removeRoutePrefix(prefix, req.url);
+
+    const root = path.resolve(dir);
+    const target = resolveContainedPath(root, req.url);
+    if (!target) {
+      res.statusCode = 403;
+      return res.end('Forbidden');
+    }
+
+    // Defense in depth: make sure the real (symlink-resolved) path also stays
+    // inside the static root before serve-static reads it. Missing files fall
+    // through to serve-static, which returns the usual 404.
+    return fs.realpath(target, (error, realTarget) => {
+      if (!error && realTarget !== root && !realTarget.startsWith(root + path.sep)) {
+        res.statusCode = 403;
+        return res.end('Forbidden');
+      }
+
+      const staticServer = serveStatic(root, { index: false });
+      return staticServer(req, res, next);
+    });
   };
 }
 
