@@ -26,7 +26,7 @@ const ItemComment = React.memo(
     const DeletePopup = usePopup(DeleteStep);
 
     return (
-      <Comment>
+      <Comment className={styles.wrapper}>
         <span className={styles.user}>
           <User name={user.name} avatarUrl={user.avatarUrl} />
         </span>

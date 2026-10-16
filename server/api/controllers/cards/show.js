@@ -41,6 +41,9 @@ module.exports = {
 
     card.isSubscribed = await sails.helpers.users.isCardSubscriber(currentUser.id, card.id);
 
+    const commentsTotals = await sails.helpers.cards.getCommentsTotals(card.id);
+    card.commentsTotal = commentsTotals[card.id] || 0;
+
     const cardMemberships = await sails.helpers.cards.getCardMemberships(card.id);
     const cardLabels = await sails.helpers.cards.getCardLabels(card.id);
     const tasks = await sails.helpers.cards.getTasks(card.id);

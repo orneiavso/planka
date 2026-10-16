@@ -10,10 +10,6 @@ import { i18n as markdownEditorI18n } from '@gravity-ui/markdown-editor/_/i18n/i
 
 import { embeddedLocales, languages } from './locales';
 
-// --- Język interfejsu edytora WYSIWYG (@gravity-ui/markdown-editor) ---
-// Biblioteka dostarcza tłumaczenia UI edytora TYLKO dla 'en' i 'ru'. Dla polskiego
-// rejestrujemy własny keyset paska narzędzi (tooltipy przycisków). Inne języki
-// spadają do angielskiego (do uzupełnienia analogicznie w razie potrzeby).
 markdownEditorI18n.registerKeyset('pl', 'menubar', {
   bold: 'Pogrubienie',
   checkbox: 'Pole wyboru',
@@ -75,9 +71,6 @@ markdownEditorI18n.registerKeyset('pl', 'menubar', {
   undo: 'Cofnij',
 });
 
-// Placeholdery bloków edytora dla polskiego (biblioteka ma je tylko dla en/ru,
-// inaczej pokazuje surowy klucz, np. "doc_empty"). doc_empty celowo puste -
-// pusty edytor ma nie pokazywać żadnej podpowiedzi.
 markdownEditorI18n.registerKeyset('pl', 'placeholder', {
   doc_empty: '',
   doc_empty_mobile: '',

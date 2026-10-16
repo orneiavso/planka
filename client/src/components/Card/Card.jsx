@@ -32,6 +32,7 @@ const Card = React.memo(
     listId,
     projectId,
     isPersisted,
+    commentsTotal,
     attachmentsTotal,
     notificationsTotal,
     users,
@@ -92,8 +93,9 @@ const Card = React.memo(
 
     const contentNode = (
       <>
-        {coverUrl && <img src={coverUrl} alt="" className={styles.cover} />}
         <div className={styles.details}>
+          <div className={styles.name}>{name}</div>
+          {coverUrl && <img src={coverUrl} alt="" className={styles.cover} />}
           {labels.length > 0 && (
             <span className={styles.labels}>
               {labels.map((label) => (
@@ -106,11 +108,11 @@ const Card = React.memo(
               ))}
             </span>
           )}
-          <div className={styles.name}>{name}</div>
           {tasks.length > 0 && <Tasks items={tasks} />}
           {(description ||
             dueDate ||
             stopwatch ||
+            commentsTotal > 0 ||
             attachmentsTotal > 0 ||
             notificationsTotal > 0) && (
             <span className={styles.attachments}>
@@ -145,6 +147,14 @@ const Card = React.memo(
                 <span className={classNames(styles.attachment, styles.attachmentLeft)}>
                   <span className={styles.attachmentContent}>
                     <Icon name="align left" />
+                  </span>
+                </span>
+              )}
+              {commentsTotal > 0 && (
+                <span className={classNames(styles.attachment, styles.attachmentLeft)}>
+                  <span className={styles.attachmentContent}>
+                    <Icon name="comment outline" />
+                    {commentsTotal}
                   </span>
                 </span>
               )}
@@ -251,6 +261,7 @@ Card.propTypes = {
   listId: PropTypes.string.isRequired,
   projectId: PropTypes.string.isRequired,
   isPersisted: PropTypes.bool.isRequired,
+  commentsTotal: PropTypes.number.isRequired,
   attachmentsTotal: PropTypes.number.isRequired,
   notificationsTotal: PropTypes.number.isRequired,
   /* eslint-disable react/forbid-prop-types */

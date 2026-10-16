@@ -17,6 +17,15 @@ const readInitialBoardFrozen = () => {
   }
 };
 
+const writeBoardFrozen = (isFrozen) => {
+  try {
+    window.localStorage.setItem(BOARD_FREEZE_STORAGE_KEY, isFrozen ? '1' : '0');
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
 const initialState = {
   isLogouting: false,
   currentModal: null,
@@ -33,11 +42,8 @@ export default (state = initialState, { type, payload }) => {
         currentModal: null,
       };
     case ActionTypes.BOARD_FREEZE_TOGGLE:
-      try {
-        window.localStorage.setItem(BOARD_FREEZE_STORAGE_KEY, payload.isFrozen ? '1' : '0');
-      } catch (e) {
-        // ignore storage errors
-      }
+      writeBoardFrozen(payload.isFrozen);
+
       return {
         ...state,
         isBoardFrozen: payload.isFrozen,

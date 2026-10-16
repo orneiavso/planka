@@ -40,8 +40,6 @@ const replaceBaseUrl = (compiler) => {
 };
 
 module.exports = function override(config, env) {
-  // Polyfille node-core dla zależności @gravity-ui/markdown-editor (@diplodoc/transform)
-  // — webpack 5 nie dostarcza ich domyślnie.
   config.resolve = config.resolve || {};
   config.resolve.fallback = {
     ...(config.resolve.fallback || {}),
@@ -71,21 +69,11 @@ module.exports = function override(config, env) {
     }),
   ];
 
-  // Wyłącz "fullySpecified" dla modułów ESM (gravity-ui / prosemirror / lezer),
-  // inaczej webpack 5 wymaga rozszerzeń przy importach i wywala build.
   config.module = config.module || { rules: [] };
   config.module.rules.push({
     test: /\.m?js$/,
     resolve: { fullySpecified: false },
   });
-
-  // Szybki build dla środowiska DEV (OPDEV_FAST=1): bez minifikacji (terser to
-  // największy konsument RAM/CPU) — mieści się w 4 GB RAM VM podmana i buduje
-  // znacznie szybciej. Produkcyjne buildy (bez flagi) pozostają zminifikowane.
-  if (process.env.OPDEV_FAST === '1') {
-    config.optimization = config.optimization || {};
-    config.optimization.minimize = false;
-  }
 
   if (env === 'production') {
     const plugins = config.plugins.map((plugin) => {

@@ -109,6 +109,17 @@ module.exports = {
       inputs.request,
     );
 
+    if (action.type === Action.Types.COMMENT_CARD) {
+      const commentsTotals = await sails.helpers.cards.getCommentsTotals(action.cardId);
+
+      sails.sockets.broadcast(`board:${values.card.boardId}`, 'cardUpdate', {
+        item: {
+          id: action.cardId,
+          commentsTotal: commentsTotals[action.cardId] || 0,
+        },
+      });
+    }
+
     sails.helpers.utils.sendWebhooks.with({
       event: 'actionCreate',
       data: {

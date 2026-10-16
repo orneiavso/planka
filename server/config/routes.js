@@ -33,10 +33,6 @@ function removeRoutePrefix(prefix, urlPath) {
   return urlPath;
 }
 
-// Resolve a request path against the static root and reject anything that
-// escapes it. serve-static already blocks literal '..', but decoding here also
-// catches encoded traversal variants, NUL bytes and backslashes, and keeps the
-// containment check explicit and independent of the library version.
 function resolveContainedPath(root, urlPath) {
   const pathname = urlPath.split('?')[0].split('#')[0];
 
@@ -71,9 +67,9 @@ function staticDirServer(prefix, dirFn) {
       return next();
     }
 
-    // serve-static treats the request url as a sub-path of static root; remove
-    // the leading route prefix so the static root doesn't have to include the
-    // prefix as a subdirectory.
+    // serve-static treats the request url as a sub-path of
+    // static root; remove the leading route prefix so the static root
+    // doesn't have to include the prefix as a subdirectory.
     req.url = removeRoutePrefix(prefix, req.url);
 
     const root = path.resolve(dir);
@@ -83,9 +79,6 @@ function staticDirServer(prefix, dirFn) {
       return res.end('Forbidden');
     }
 
-    // Defense in depth: make sure the real (symlink-resolved) path also stays
-    // inside the static root before serve-static reads it. Missing files fall
-    // through to serve-static, which returns the usual 404.
     return fs.realpath(target, (error, realTarget) => {
       if (!error && realTarget !== root && !realTarget.startsWith(root + path.sep)) {
         res.statusCode = 403;

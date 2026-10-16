@@ -1,6 +1,5 @@
 const net = require('net');
 
-// Cloud instance metadata endpoints are never a legitimate webhook target.
 const METADATA_HOSTS = new Set(['169.254.169.254', 'fd00:ec2::254']);
 
 function isPrivateIpv4(ip) {
@@ -44,10 +43,6 @@ function isPrivateIpv6(ip) {
   return false;
 }
 
-// Basic SSRF guard for outbound webhook calls: only http(s), never cloud
-// metadata, and (unless explicitly allowed) no private/loopback/link-local IP
-// literals. DNS names are not resolved here - full anti-rebinding resolution is
-// tracked for a later iteration.
 function isSafeWebhookUrl(rawUrl) {
   let url;
   try {

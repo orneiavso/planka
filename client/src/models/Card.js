@@ -22,6 +22,9 @@ export default class extends BaseModel {
     dueDate: attr(),
     isDueDateCompleted: attr(),
     stopwatch: attr(),
+    commentsTotal: attr({
+      getDefault: () => 0,
+    }),
     isSubscribed: attr({
       getDefault: () => false,
     }),

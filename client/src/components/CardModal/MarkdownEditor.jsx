@@ -5,14 +5,6 @@ import { ThemeProvider, ToasterProvider, ToasterComponent, Toaster } from '@grav
 
 import styles from './MarkdownEditor.module.scss';
 
-// Wlasna, lekka nakladka na biblioteke @gravity-ui/markdown-editor (MIT).
-// Tryb WYSIWYG - formatowanie (pogrubienie, naglowki itp.) widac wizualnie,
-// bez recznego wpisywania znacznikow markdown. Zachowujemy domyslny pasek
-// (m.in. "Cytat"); przycisk "Note" ukrywamy w CSS (patrz MarkdownEditor.module.scss).
-// Providery gravity (Theme/Toaster) trzymamy TU, lokalnie przy edytorze - NIE
-// globalnie w Root - zeby wrapper .g-root nie obejmowal boardu i nie psul
-// react-beautiful-dnd (przeciaganie kart miedzy listami).
-
 const MarkdownEditor = React.forwardRef(({ defaultValue, onChange, onSubmit, onCancel }, ref) => {
   const toaster = useMemo(() => new Toaster(), []);
 

@@ -9,11 +9,11 @@ Elegant open source project tracking - an independent, modernized fork.
 > Maintained independently. Licensed under **AGPL-3.0**.
 > Not affiliated with or endorsed by PLANKA.
 
-![Demo](./demo.gif)
-
 ## What this fork adds
 
 - WYSIWYG rich-text editing for card descriptions and comments - markdown still supported
+- Richer card previews - title first, then cover image and labels, with comment and attachment counts updated in real time
+- Cleaner comment list and consistent typography across the board, card and editor
 - Security hardening on the 1.26.3 base - path-traversal containment for static uploads and SSRF guards on outbound webhooks
 - Reproducible container builds from source on an up-to-date Node 20 base
 - Ongoing dependency and base-image maintenance
