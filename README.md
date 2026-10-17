@@ -46,7 +46,7 @@ published to Docker Hub and track the latest fork release:
 docker pull orneiavso/planka:latest
 
 # Pin to a specific release (recommended for production)
-docker pull orneiavso/planka:1.26.3_n.2.4.4
+docker pull orneiavso/planka:1.26.3_n.2.4.5
 ```
 
 Every published image is built entirely from source via the included
@@ -56,15 +56,15 @@ any image is fully reproducible (AGPL-3.0 corresponding source).
 
 ## Versioning
 
-The current release is **`1.26.3+n.2.4.4`**.
+The current release is **`1.26.3+n.2.4.5`**.
 
 Versions follow the scheme **`1.26.3+n.x.x.x`**: `1.26.3` is the upstream
 AGPL-3.0 PLANKA base this fork is built on, and the `+n.x.x.x` suffix tracks
 this fork's own independent releases (modernizations and security maintenance).
 
 Because `+` is not a valid character in a Docker image tag, the equivalent image
-tag replaces it with an underscore - version `1.26.3+n.2.4.4` is published as
-image tag `1.26.3_n.2.4.4`.
+tag replaces it with an underscore - version `1.26.3+n.2.4.5` is published as
+image tag `1.26.3_n.2.4.5`.
 
 ## Tech stack
 
